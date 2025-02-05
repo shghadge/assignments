@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-// recoverMiddleware will catch any panic and log it without crashing the server
-func recoverMiddleware(next http.Handler) http.Handler {
+// RecoverMiddleware will catch any panic and log it without crashing the server
+func RecoverMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// defer a function to handle the panic
 		defer func() {
@@ -21,8 +21,8 @@ func recoverMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-// loggingMiddleware wraps a http handler and logs details about the incoming request
-func loggingMiddleware(next http.Handler) http.Handler {
+// LoggingMiddleware wraps a http handler and logs details about the incoming request
+func LoggingMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// log the incoming request
 		log.Printf("Request: %s %s, Client ID: %s", r.Method, r.URL.Path, r.Header.Get("client_id"))

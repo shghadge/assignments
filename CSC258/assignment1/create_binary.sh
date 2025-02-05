@@ -17,8 +17,7 @@ for target in "${targets[@]}"; do
     ARCH=$(echo "$target" | cut -d/ -f2)
 
     echo "Building for $OS/$ARCH..."
-    pwd
-    GOOS="$OS" GOARCH="$ARCH" go build -o "server-binary-$OS-$ARCH"
+    GOOS="$OS" GOARCH="$ARCH" go build -o "../bin/server/server-binary-$OS-$ARCH"
 done
 
 cd ../
@@ -28,7 +27,5 @@ for target in "${targets[@]}"; do
     ARCH=$(echo "$target" | cut -d/ -f2)
 
     echo "Building for $OS/$ARCH..."
-    pwd
-    GOOS="$OS" GOARCH="$ARCH" go build -o "client-binary-$OS-$ARCH"
+    GOOS="$OS" GOARCH="$ARCH" go build -o "../bin/client/client-binary-$OS-$ARCH"
 done
-

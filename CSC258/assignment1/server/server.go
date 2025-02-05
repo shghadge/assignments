@@ -38,7 +38,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	time.Sleep(time.Duration(randomNum) * time.Second)
 
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{"type": "data", "client_id": p.ClientID, "received_at": receivedTime.UTC().String(), "processing_time": time.Now().UTC().String(), "message": "pong"})
+	json.NewEncoder(w).Encode(map[string]string{"type": "data", "client_id": p.ClientID, "received_at": receivedTime.UTC().String(), "processed_time": time.Now().UTC().String(), "message": "pong"})
 }
 
 func main() {
@@ -46,8 +46,9 @@ func main() {
 	mux.HandleFunc("/", handler)
 
 	// add the logging middleware
-	configuredMux := recoverMiddleware(loggingMiddleware(mux))
+	configuredMux := RecoverMiddleware(LoggingMiddleware(mux))
 
+	log.Println("Started Listening on Port", PORT)
 	// serve the router
 	log.Fatal(http.ListenAndServe(":"+PORT, configuredMux))
 }
