@@ -1,12 +1,5 @@
 #### Simple Client Server Application
 
-**Steps:**
-If you don't want to download and run Go on your system you can download the precompiled binaries and run the application.
-
-Navigate to the following repository and donwload the particular binary according to your processor architecture:
-https://github.com/shghadge/assignments/tree/main/CSC258/assignment1/bin
-
-**OR**
 
 #### Following is a proper way to build and run the Go code
 
