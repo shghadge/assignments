@@ -47,7 +47,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	p := Payload{}
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
-		log.Println(err)
+		log.Println("error while decoding body", err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"type": "error", "msg": "error while reading body"})
 		return
@@ -65,7 +65,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", handler)
 
-	// add the logging middleware
+	// add the logging and panic recover middleware
 	configuredMux := RecoverMiddleware(LoggingMiddleware(mux))
 
 	log.Println("Started Listening on Port", PORT)

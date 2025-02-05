@@ -55,14 +55,14 @@ func MakeClientRequest(httpClient *http.Client, clientID int) {
 	// json serialization
 	b, err := json.Marshal(p)
 	if err != nil {
-		log.Printf("client_id: %v error while serializing payload\n", clientID)
+		log.Printf("client_id: %v error while serializing payload : %v\n", clientID, err)
 		return
 	}
 
 	// create a new http request
 	req, err := http.NewRequest(http.MethodPost, "http://localhost:"+PORT, bytes.NewBuffer(b))
 	if err != nil {
-		log.Printf("client_id: %v error while creating new request\n", clientID)
+		log.Printf("client_id: %v error while creating new request :: %v\n", clientID, err)
 		return
 	}
 
@@ -71,7 +71,7 @@ func MakeClientRequest(httpClient *http.Client, clientID int) {
 	// make the http request
 	resp, err := httpClient.Do(req)
 	if err != nil {
-		log.Printf("client_id: %v error while making request\n", clientID)
+		log.Printf("client_id: %v error while making request :: %v\n", clientID, err)
 		return
 	}
 
@@ -83,7 +83,7 @@ func MakeClientRequest(httpClient *http.Client, clientID int) {
 	// deserialize the response
 	err = json.NewDecoder(resp.Body).Decode(&m)
 	if err != nil {
-		log.Printf("client_id: %v error while reading body\n", clientID)
+		log.Printf("client_id: %v error while reading body : %v\n", clientID, err)
 		return
 	}
 

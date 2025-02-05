@@ -13,17 +13,12 @@ Check whether the installation was successful by typing `go` in your terminal
 Change directory to *server* and run the following commands to build and run the server
 
 ```go
-go build
+go run server.go
 ```
-```go
-./server
-```
+
 
 **Step 3:**
 Change directory to *client* and run the following commands to build and run the client
 ```go
-go build
-```
-```go
-./client
+go run client
 ```
