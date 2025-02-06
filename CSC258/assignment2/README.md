@@ -21,11 +21,11 @@
 
 - **Run the containers:**
     ```
-    docker run --network my_network --name my_server server:latest
+    docker run --network my_network --name server server:latest
     ```
 
     ```
-    docker run --network my_network --name my_client --env server_name=my_server server:latest
+    docker run --network my_network --name client --env SERVER_NAME=server my_client:latest
     ```
 
 ---
