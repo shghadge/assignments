@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  my_server:
+    image: my_server:latest
+    build:
+      context: ./server
+    networks:
+      - my_network
+  my_client:
+    image: my_client:latest
+    build:
+      context: ./client
+    networks:
+      - my_network
+    depends_on:
+      - my_server
+    environment:
+      - SERVER_NAME=my_server  
+
+networks:
+  my_network:
+    driver: bridge
