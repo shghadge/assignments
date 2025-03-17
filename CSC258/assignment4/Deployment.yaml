@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ass4-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ass4-server
+  template:
+    metadata:
+      labels:
+        app: ass4-server
+    spec:
+      containers:
+        - name: ass4-server
+          image: gcr.io/cogent-joy-453920-v4/ass4-server
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "300m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ass4-server
+spec:
+  selector:
+    app: ass4-server
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer

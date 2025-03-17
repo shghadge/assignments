@@ -59,11 +59,14 @@ func (s *server) handler(w http.ResponseWriter, r *http.Request) {
 	// Write client ID and access time to log file with lock
 	s.mutex.Lock()
 	log.Printf("ClientID: %s acquired the lock", p.ClientID)
+
+	// defer calls get executed at the end of the function
 	defer func() {
 		log.Printf("ClientID: %s releasing the lock", p.ClientID)
-		s.mutex.Unlock()
+		s.mutex.Unlock() // lock will be realeased before the function return
 	}()
 
+	// open the log file. create and open if it doesn't exist
 	logFile, err := os.OpenFile("log_file", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Println("error opening log file:", err)
@@ -73,6 +76,7 @@ func (s *server) handler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer logFile.Close()
 
+	// write to the log file when the client request is received
 	logEntry := fmt.Sprintf("ClientID: %s, Accessed at: %s\n", p.ClientID, receivedTime.UTC().String())
 	_, err = logFile.WriteString(logEntry)
 	if err != nil {
